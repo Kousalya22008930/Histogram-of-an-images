@@ -20,63 +20,67 @@ The Histogram of gray scale image and color image is shown.
 ## Program:
 ### Developed By: KOUSALYA A.
 ### Register Number: 212222230068
-### Input Grayscale Image and Color Image
+### Input Grayscale Image 
 ```python
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt
-gray_image = cv2.imread('agray.jpg')
-color_image = cv2.imread('vcolor.jpg')
-cv2.imshow("Gray image",gray_image)
-cv2.imshow("color image",color_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+gray_image = cv2.imread('Qn3_Histogram_Bright_Image.tif', cv2.IMREAD_GRAYSCALE)
+plt.title("Grayscale Image")
+plt.imshow(gray_image, cmap='gray')
+plt.axis('off')
 ```
+## Output:
+![image](https://github.com/user-attachments/assets/631a15a0-35de-468e-8da1-ff690c5c23da)
+
 ### Histogram of Grayscale Image
 ```python
-import numpy as np
-gray_image=cv2.imread('agray.jpg')
-import matplotlib.pyplot as plt 
-gray_hist=cv2.calcHist(gray_image,[0],None,[255],[0,255])
-plt.figure(figsize=(10,6))
-plt.subplot(1,2,1)
-plt.imshow(gray_image)
-plt.subplot(1,2,2)
-plt.title("Histogram")
-plt.xlabel("Grayscale value")
-plt.ylabel("pixel count")
-plt.stem(gray_hist)
+plt.title("Histogram of Grayscale Image")
+plt.hist(gray_image.ravel(), bins=256, color='black', alpha=0.6)
+plt.xlim(0, 255)
+plt.tight_layout()
 plt.show()
 ```
+## Output:
+![image](https://github.com/user-attachments/assets/1dbac238-fe86-4cdb-8ad2-eebe9fde40cc)
+
 ### Histogram Equalization of Grayscale Image.
 ```python
-import numpy as np
-color_image=cv2.imread('vcolor.jpg')
-color_img=cv2.cvtColor(color_image,cv2.COLOR_BGR2RGB)
-import matplotlib.pyplot as plt 
-color_hist=cv2.calcHist(color_img,[0],None,[255],[0,255])
-plt.figure(figsize=(8,4))
-plt.subplot(1,2,1)
-plt.imshow(color_img)
-plt.subplot(1,2,2)
-plt.title("Histogram")
-plt.xlabel("Colorscale value")
-plt.ylabel("pixel count")
-plt.stem(color_hist)
+equalized_gray_image = cv2.equalizeHist(gray_image)
+plt.title("Histogram of Equalized Grayscale Image")
+plt.hist(equalized_gray_image.ravel(), bins=256, color='black', alpha=0.6)
+plt.xlim(0, 255)
+plt.title("Enhanced Grayscale Image")
+plt.imshow(equalized_gray_image, cmap='gray')
+plt.axis('off')
+```
+## Output:
+![image](https://github.com/user-attachments/assets/0357dac5-9b2f-4d4d-af4f-e48a88ba1e4c)
+![image](https://github.com/user-attachments/assets/5753d49a-18ca-48c9-8edb-654388b9d825)
+
+### Input of color image
+```python
+color_image = cv2.imread('color_image.jpg')
+plt.title("Input Color Image")
+plt.imshow(cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB))
+plt.axis('off')
+```
+### Output:
+![image](https://github.com/user-attachments/assets/486876b2-04e2-406c-916f-74421bf117b8)
+
+### Histogram of Color Image
+```python
+hist_b = cv2.calcHist([color_image], [0], None, [256], [0, 256])
+hist_g = cv2.calcHist([color_image], [1], None, [256], [0, 256])
+hist_r = cv2.calcHist([color_image], [2], None, [256], [0, 256])
+plt.title("Histogram of Input Color Image")
+plt.plot(hist_b, color='blue', label='Blue channel')
+plt.plot(hist_g, color='green', label='Green channel')
+plt.plot(hist_r, color='red', label='Red channel')
 plt.show()
 ```
-
-## Output:
-### Input Grayscale Image and Color Image
-![Screenshot 2024-09-28 105311](https://github.com/user-attachments/assets/b3fc969e-1931-4dce-9936-85715c7009ba)
-
-### Histogram of Grayscale Image and 
-![Screenshot 2024-09-28 105404](https://github.com/user-attachments/assets/0a04d475-64a3-4d40-b6ab-a58bbb5378ff)
-
-### Histogram ofany channel of Color Image
-![Screenshot 2024-09-28 105426](https://github.com/user-attachments/assets/fb3eec34-36f8-4aac-adbb-5815fb9fcdc2)
-
-### Histogram Equalization of Grayscale Image.
-![Screenshot 2024-09-28 105525](https://github.com/user-attachments/assets/39b67bf7-b6d8-489a-90a1-4bff2b56d2ce)
+### Output:
+![image](https://github.com/user-attachments/assets/b128d11d-8e7e-46d9-bf56-d1a9d1f45612)
 
 ## Result: 
 Thus the histogram for finding the frequency of pixels in an image with pixel values ranging from 0 to 255 is obtained. Also,histogram equalization is done for the gray scale image using OpenCV.
